@@ -1,4 +1,7 @@
 <?php
+
+
+
 class dbcntrl
 {
     private $conn;
@@ -16,7 +19,7 @@ class dbcntrl
         $this->dbserver= $dbserver;
         $this->dbname = $dbname;
 
-        echo "construct";
+        //echo "construct";
         $this->conn = $this->connect();
         if($this->conn->connect_error)
         {
@@ -44,11 +47,38 @@ class dbcntrl
 
     function runQuery($query)
     {
-        if ($this->conn->query($sql) === TRUE) {
+        if ($this->conn->query($query) === TRUE) 
+        {
             echo "New record created successfully";
-        } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+        } 
+        else 
+        {
+            echo "Error: " . $query . "<br>" . $this->conn->error;
         }
+    }
+
+    function getRows($query)
+    {
+        $rows = array();
+        $result = $this->conn->query($query);
+
+        if ($result->num_rows > 0) 
+        {
+            while($row = $result->fetch_assoc()) 
+            {
+                $rows[] = $row;
+                //echo "id: " . $row["ID"]. " - Name: " . $row["PName"]. " " . $row["Barcode"]. "<br>";
+            }
+        } 
+        else 
+        {
+            echo "zero rows ";
+            if($this->conn->error)
+            {
+                echo $this->conn->error;
+            }
+        }
+        return $rows;
     }
 
     function numRows($query)
