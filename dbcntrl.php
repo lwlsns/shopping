@@ -49,7 +49,7 @@ class dbcntrl
     {
         if ($this->conn->query($query) === TRUE) 
         {
-            echo "New record created successfully";
+            echo "";
         } 
         else 
         {

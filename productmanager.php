@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html>
 <body>
-<table styles="align:center;" width="50%" cellpadding="10" cellspacing="1">
-<tbody>
-<tr>
-<th style="text-align:left;">Name</th>
-<th style="text-align:left;">Barcode</th>
-<th style="text-align:left;">Description</th>
-<th style="text-align:right;" width="5%">Quantity</th>
-<th style="text-align:right;" width="10%">Price</th>
-<th style="text-align:center;" width="5%">Delete</th>
-</tr>
-
 <?php
-    require_once('cart_functions.php');
 
+require_once('cart_functions.php');
+
+if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['delete']))
+{
+    $deleteid = $_POST['delete'];
+    deleteProduct($deleteid);
+}
+else
+{
     //declare variebles from new product form 
     $barcode = $pName = $pDescr = $pURL =  "";
     $price = $stock = 0;
@@ -76,9 +73,20 @@
         }
 
     }
-
-    //createProduct("0079383017", "Camera", 109.90, "Nikon 8mp Camera",
-     //"https://www.bhphotovideo.com/images/images2000x2000/nikon_d610_dslr_camera_with_1008287.jpg", 13);
+}
+?>
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
+<table styles="align:center;" width="50%" cellpadding="10" cellspacing="1">
+<tbody>
+<tr>
+<th style="text-align:left;">Name</th>
+<th style="text-align:left;">Barcode</th>
+<th style="text-align:left;">Description</th>
+<th style="text-align:right;" width="5%">Quantity</th>
+<th style="text-align:right;" width="10%">Price</th>
+<th style="text-align:center;" width="5%">Delete</th>
+</tr>
+<?php
 
     $prods = array();
     $prods = getAllProducts();
@@ -90,13 +98,14 @@
             <td style="text-align:left;"><?php echo $prods[$i]["PDescription"]; ?></td>
             <td style="text-align:right;"><?php echo $prods[$i]["Stock"]; ?></td>
             <td style="text-align:right;"><?php echo $prods[$i]["Price"]; ?></td>
-            <td style="text-align:center;"><?php echo $prods[$i]["ID"] . "x"; ?></td>
+            <td style="text-align:center;"><button type="submit" name="delete" value="<?php echo $prods[$i]["ID"]?>" >X</button></td>
         </tr>
     <?php    
     }
 ?>
 </tbody>
 </table>
+</form>
 <br><br>
 Add New Product
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  

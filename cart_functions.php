@@ -104,7 +104,7 @@ function deleteProduct($pid)
 {
     global $dbcntrl;
     $deleteSQl = "DELETE FROM Products
-    WHERE ProductId = $pid";
+    WHERE ID = $pid";
 
     $dbcntrl->runQuery($deleteSQl);
 }
