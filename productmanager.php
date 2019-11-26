@@ -67,9 +67,19 @@ else
             $price = $_POST["price"];
         }
 
+        if (empty($_POST["image"])) 
+        {
+            echo "image is required";
+            $passing = false;
+        } 
+        else 
+        {
+            $pURL = $_POST["image"];
+        } 
+
         if($passing)
         {
-            createProduct($barcode, $pName, $price, $pDescr, "", $stock);            
+            createProduct($barcode, $pName, $price, $pDescr, $pURL, $stock);            
         }
 
     }
@@ -79,6 +89,7 @@ else
 <table styles="align:center;" width="50%" cellpadding="10" cellspacing="1">
 <tbody>
 <tr>
+<th style="text-align:left;">Image</th>
 <th style="text-align:left;">Name</th>
 <th style="text-align:left;">Barcode</th>
 <th style="text-align:left;">Description</th>
@@ -93,6 +104,7 @@ else
     for($i=0; $i<count($prods); $i++)
     { ?>
         <tr>
+            <td style="text-align:left;"> <img src="<?php echo $prods[$i]["PictureURL"]; ?>" height="42" width="42"> </td>
             <td style="text-align:left;"><?php echo $prods[$i]["PName"]; ?></td>
             <td style="text-align:left;"><?php echo $prods[$i]["Barcode"]; ?></td>
             <td style="text-align:left;"><?php echo $prods[$i]["PDescription"]; ?></td>
@@ -117,6 +129,7 @@ Add New Product
         <th style="text-align:left;">Description</th>
         <th style="text-align:right;" width="5%">Stock</th>
         <th style="text-align:right;" width="10%">Price</th>
+        <th style="text-align:center;">Image URL</th>
         <th style="text-align:center;" width="5%">Submit</th>
     </tr>
     <tr>
@@ -125,6 +138,7 @@ Add New Product
         <td><input type="text" name="description"></td>
         <td><input type="text" name="quantity" size="4"></td>
         <td><input type="text" name="price" size="4"></td>
+        <td><input type="text" name="image"></td>
         <td><input type="submit" name="submit" value="Submit"></td>
   </tr>  
   </tbody>
