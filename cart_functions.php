@@ -54,7 +54,7 @@ function addItemToCart($session_id, $product_id, $quantity)
     global $dbcntrl;
     $insertSQL = "INSERT INTO Cart 
     (SessionID, ProductID, Quantity)
-    VALUES ($session_id, $product_id, $quantity)";
+    VALUES ('$session_id', $product_id, $quantity)";
     
     $dbcntrl->runQuery($insertSQL);
 
