@@ -2,6 +2,7 @@
 <html>
 <HEAD>
 <link href="style.css" type="text/css" rel="stylesheet" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 </HEAD>
 <body>
 
@@ -9,7 +10,7 @@
     session_start();  
     require_once('cart_functions.php');
 
-    echo session_id();
+    //echo session_id();
 
     if($_SERVER['REQUEST_METHOD'] == "POST" and $_POST["submit"] == "Add to Cart")
     {
@@ -18,6 +19,23 @@
             addItemToCart(session_id(), $_POST["prodid"],  $_POST["quantity"]);
         }
     }
+    $cartItems = array();
+    $cartItems = getItemsInCart();
+
+    ?>
+
+
+    
+    <div class="header">
+    <li>
+         <i class="fa fa-shopping-cart"></i>
+         <a href="Cart1.aspx" class="cart">
+         <?php echo count($cartItems); ?>
+        </a>
+    </li>
+    </div>
+    <div class="center">
+<?php
 
     $prods = array();
     $prods = getAllProducts();
@@ -39,6 +57,7 @@
     <?php
     }
     ?>
+    </div>
 
 </body>
 </html>

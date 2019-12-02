@@ -44,8 +44,13 @@ function deleteTables()
 
 function getItemsInCart()
 {
+    global $dbcntrl;
     $cartContents = array();
     $sid = session_id();
+    $select = "SELECT * FROM Cart
+    WHERE SessionID = '$sid'";
+    $cartContents = $dbcntrl->getRows($select);
+    return $cartContents;
 
 }
 
